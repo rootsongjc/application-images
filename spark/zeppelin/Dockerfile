@@ -12,16 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# This image relies on the zeppelin-build image to get the zeppelin
-# binaries built, and the Makefile to put it in this directory.
+FROM index.tenxcloud.com/jimmy/spark:1.5.2_v1
 
-FROM gcr.io/google_containers/spark-base:latest
+ENV ZEPPELIN_VER  0.7.1
 
-ENV ZEPPELIN_VER  0.5.6-incubating
-
+# Use bit apache mirror
 RUN mkdir -p /opt && \
     cd /opt && \
-    curl http://www.us.apache.org/dist/incubator/zeppelin/${ZEPPELIN_VER}/zeppelin-${ZEPPELIN_VER}-bin-all.tgz | \
+    curl http://mirror.bit.edu.cn/apache/zeppelin/zeppelin-${ZEPPELIN_VER}/zeppelin-${ZEPPELIN_VER}-bin-all.tgz | \
         tar -zx && \
     ln -s zeppelin-${ZEPPELIN_VER}-bin-all zeppelin && \
     echo Zeppelin ${ZEPPELIN_VER} installed in /opt
